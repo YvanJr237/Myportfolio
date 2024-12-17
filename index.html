@@ -50,6 +50,85 @@
 	<script src="js/respond.min.js"></script>
 	<![endif]-->
 
+    <!-- <style>
+		.popup{
+			display: none;
+			position: fixed;
+			top: 50%;
+			left: 50%;
+			width: 80vw;
+			transform: translate(-50%, -50%);
+			height: 80vw;
+			max-width: 600px;
+			background-color: rgba(0, 0, 0, 0.5);
+			justify-content: center;
+			align-items: center; 
+			z-index: 1000;
+		}
+
+		.popup-content{
+			position: relative;
+			padding: 0px;
+			height: 100%;
+		} 
+
+		.close-btn{
+			position: absolute;
+			top: 10px;
+			right: 10px;
+			font-size: 24px;
+			cursor: pointer;
+		}
+
+		iframe{
+			border: none;
+			width: 100%;
+			height: calc(100% - 40px);
+		}
+	</style> -->
+	
+</style>
+<style>
+  .popup{
+	display: none;
+	position: fixed;
+	top: 50%;
+	left: 50%;
+	transform: translate(-37%, -50%);
+	width: 50%;
+	height: 70%;
+	/* max-width: 600px; */
+	background-color: rgba(0, 0, 0, 0.5);
+	justify-content: center;
+	align-items: center; 
+	overflow: hidden;
+	z-index: 1000;
+  }
+
+  /* .popup-content{
+	position: relative;
+	padding: 0px;
+	height: 100%;
+  }  */
+
+  .close-btn{
+	position: absolute;
+	top: 0;
+	right: 0;
+	font-size: 44px;
+	cursor: pointer;
+	background-color: red;
+	color: white;
+	width: 30px;
+  }
+
+  iframe{
+	border-color: #007bff;
+	border: 10px;
+	width: 100%;
+	height: calc(100% - 40px);
+  }
+</style>
 </head>
 
 <body>
@@ -61,7 +140,7 @@
 				<div class="text-center">
 					<div class="author-img" style="background-image: url(images/PICTURE\ BOY.jpg);"></div>
 					<h1 id="colorlib-logo"><a href="index.html">Yvan Fotso</a></h1>
-					<span class="position"><a href="#">PHP Devolopper </a> from Cameroon</span>
+					<span class="position"><a href="#">PHP Devolopper </a> from Africa</span>
 				</div>
 				<nav id="colorlib-main-menu" role="navigation" class="navbar">
 					<div id="navbar" class="collapse">
@@ -107,7 +186,7 @@
 												<div class="desc">
 													<h1>Hi! <br>I'm Yvan Fotso</h1>
 													<h2>Welcome to my PORTFOLIO</h2>
-													<p><a class="btn btn-primary btn-learn">Download CV <i
+													<p><a class="btn btn-primary btn-learn" id="popupButton">Show my CV <i
 																class="icon-download4"></i></a></p>
 												</div>
 											</div>
@@ -134,6 +213,12 @@
 								</div>
 							</li>
 						</ul>
+					</div>
+					<div id="popup" class="popup">
+						<span class="close-btn" id="closeButton">&times;</span>
+						<!-- i-frame pour charger une page externe -->
+						 <iframe id="externalPage" src="" frameborder="0" width="400" height="700"></iframe>
+						 <!--  -->
 					</div>
 				</section>
 
@@ -867,6 +952,7 @@
 			</div><!-- end:colorlib-main -->
 		</div><!-- end:container-wrap -->
 	</div><!-- end:colorlib-page -->
+	
 
 	<!-- jQuery -->
 	<script src="js/jquery.min.js"></script>
@@ -886,6 +972,37 @@
 
 	<!-- MAIN JS -->
 	<script src="js/main.js"></script>
+
+	<script>
+		// Recuperer les elements
+		let popupButton = document.getElementById('popupButton');
+		let popup = document.getElementById('popup');
+		let closeButton = document.getElementById('closeButton');
+		let iframe = document.getElementById('externalPage');
+
+		// url de la page externe a charger dans l iframe
+		let externalUrl = 'cvbootstrap.html';
+
+		// ouverture de la popup au click du bouton
+		popupButton.addEventListener('click', function(){
+			iframe.src = externalUrl; //definir l url de la page externe dans l iframe
+			popup.style.display = 'flex';
+		});
+
+		// fermer la popup au click du bouton de fermeture
+		closeButton.addEventListener('click', function(){
+            popup.style.display = 'none';
+			iframe.src = ''; //effacer le contenu de l iframe
+		});
+
+		// Fermer la popup si l utilisateur clique en dehors de celle-ci
+		window.addEventListener('click', function(event){
+			if (event.target === popup) {
+				popup.style.display = 'none';
+				iframe.src = '';
+			}
+		});
+	</script>
 
 </body>
 
